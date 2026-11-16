@@ -1,0 +1,1 @@
+{"include": ["componentSystem.js","PictureStore.js","HabilityStore.js","HabilityData.js","LocalStorageManager.js"]}

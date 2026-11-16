@@ -1,0 +1,97 @@
+*{
+    margin: 0;
+    padding: 0;
+
+}
+
+body{
+    background-color: #151515;
+    color:#DDDDDD;
+}
+.container {
+    width: 100%;
+    
+}
+.header{
+    position:relative;
+    background-color: #251515;
+    height: 60px;
+    width: 100%;
+    border-bottom: 2px solid #FF000010;
+}
+
+.header .icon{
+    height: calc(100% - 20px);
+    display: inline-block;
+    margin:10px;
+}
+
+.header .rubyDiv{
+    right:25px;
+    position:absolute;
+    display: inline-flex;
+    height:100%;
+    align-items: center;
+
+}
+
+.header .rubyDiv .rubyIcon{
+    height: 33px;
+    display: inline-block;
+}
+
+.navigationBar{
+    height:60px;
+    display: inline-block;
+    position:relative;
+    width:100%;
+    display: flex;
+    background-color: #1010FF15;
+    align-items: center;
+}
+.navSpan{
+    margin-right: 10px;
+    margin-left: 5px;
+    font-weight: 900;
+    color: #AAAAAA;
+    cursor: pointer;
+}
+
+.hidden{
+    display: none;
+}
+
+.questDiv{
+    height: 480px;
+    background-color: #000000;
+    width: 80vw;
+    position:fixed;
+    left: 10%;
+    top: 150px;
+    border-color: #909090;
+    border-radius: 24px;
+    border-width: 7px;
+    border-style: solid;
+    
+    box-shadow: 8px 8px 0.5px 8px #FFFFFF07 inset, 7px 7px 0.5px 7px #FFFFFF07 inset, 6px 6px 0.5px 6px #FFFFFF07 inset, 5px 5px 0.5px 5px #FFFFFF07 inset, 4px 4px 0.5px 4px #FFFFFF07 inset, 3px 3px 0.5px 3px #FFFFFF07 inset, 2px 2px 0.5px 2px #FFFFFF07 inset, 1px 1px 0.5px 1px #FFFFFF07 inset;
+
+}
+
+.questDiv .questBar{
+    position: absolute;
+    height: 50px;
+    background-color: #303030;
+    border-radius: 8px;
+    border-color: #FFFFFF;
+    border-style: solid;
+    left: 10%;
+    bottom: 50px;
+    width: 80%;
+}
+.inputField{
+    width:100px;
+    border: 1px solid white;
+    background-color: black;
+    border-radius:3px;
+    color: white;
+}
