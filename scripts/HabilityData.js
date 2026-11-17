@@ -267,13 +267,13 @@ class Meal{
      * @param {number} proteins - The number of proteins in the meal.
      * @param {number} vegetables - The number of vegetables in the meal.
      */
-    constructor(calories, carbs, fats, proteins, vegetables) {
+    constructor(calories, carbs, fats, proteins, vegetables, date) {
         this.calories = calories;
         this.carbs = carbs;
         this.fats = fats;
         this.proteins = proteins;
         this.vegetables = vegetables;
-        this.dateTime = new Date(); // Initialize the dateTime property
+        this.dateTime = date == undefined || date == null ? new Date() : date;
 
     }
 }
