@@ -16,7 +16,7 @@ headerRubyDiv.addComponent(headerRubyText);
 container.addComponent(header);
 header.addComponent(headerIcon);
 header.addComponent(headerRubyDiv);
-
+header.addComponent(new ButtonComponent("resetButton","resetButton",()=> {localStorageManager.clearData()},"").setText("Reset Data"));
 
 
 let navigationBar = new DivComponent("navigationBar","navigationBar","")
