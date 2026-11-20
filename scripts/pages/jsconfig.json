@@ -1,1 +1,1 @@
-{"include": ["../componentSystem.js","indexhtml.js","../PictureStore.js","../HabilityData.js","../Components/FoodCheckComponents.js"]}
+{"include": ["../componentSystem.js","indexhtml.js","../PictureStore.js","../HabilityData.js","../Components/FoodCheckComponents.js","../Components/QuestComponent.js","../HabilityQuest.js"]}

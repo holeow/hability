@@ -22,7 +22,7 @@ header.addComponent(new ButtonComponent("resetButton","resetButton",()=> {localS
 let navigationBar = new DivComponent("navigationBar","navigationBar","")
 navigationBar.addComponent(new SpanComponent("navSpan1","navSpan","Home"))
 navigationBar.addComponent(new SpanComponent("navSpan2","navSpan","FoodCheck").setOnClick(openFoodCheck))
-navigationBar.addComponent(new SpanComponent("navSpan3","navSpan","Inventory"))
+navigationBar.addComponent(new SpanComponent("navSpan3","navSpan","Quests").setOnClick(toggleQuest));
 navigationBar.addComponent(new SpanComponent("navSpan4","navSpan","Settings"))
 container.addComponent(navigationBar);
 
@@ -32,7 +32,9 @@ container.addComponent(navigationBar);
 //container.addComponent(trialSpan);
 
 let foodCheckDiv= new DivComponent("FoodCheck","foodCheckDiv hidden","");
-foodCheckDiv.addComponent(new FoodCheckStatusComponent("foodCheckStatus",""));
+let fcsc = new FoodCheckStatusComponent("foodCheckStatus","")
+foodCheckDiv.addComponent(fcsc);
+foodCheck.goalComponent = fcsc;
 foodCheckDiv.addComponent(new FoodCheckGoalSetupComponent("goalSetup",""));
 foodCheckDiv.addComponent(new BrComponent());
 foodCheckDiv.addComponent(new BrComponent());
@@ -55,12 +57,24 @@ addComponentToElement(container,body);
 
 //questDiv.removeClass("hidden");
 
-questDiv.questBar.setQuest(300000);
+//questDiv.questBar.setQuest(300000);
+
+habilityData.loadDataFromLocalStorage();
+foodCheck.loadGoalsFromLocalStorage();
+//habilityData.addRubies(5);
 
 function openFoodCheck(){
     foodCheckDiv.removeClass("hidden");
 }
 function tr(value){
     console.log(value);
+}
+function toggleQuest(){
+    questDiv.toggleClass("hidden");
+    let quest = new FetchLostItemQuest();
+    quest.generate();
+    questDiv.clearComponents();
+    let questcpn = new QuestComponent("questInfo","questInfo",quest);
+    questDiv.addComponent(questcpn);
 }
 

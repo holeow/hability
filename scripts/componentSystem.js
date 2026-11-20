@@ -1,11 +1,12 @@
 var counter = 0;
-function incrementAndReturn(){
+function incrementAndReturn()
+{
 counter++;
 return counter;
 }
 
 class Component {
-    constructor(id, balise, cssclass, inner) {
+    constructor(id, balise, cssclass, inner, createElement = true) {
         
         /**
          * @type {string}
@@ -51,7 +52,7 @@ class Component {
          * @type {HTMLElement}
          */
         this.element = null;
-
+        if(createElement)
         this.createElement();
         
     }
@@ -118,6 +119,19 @@ class Component {
         this.element.classList.remove(clas)
         return this;
     }
+
+     /**
+     * 
+     * @param {string} clas 
+     * @returns {Component}
+     */
+    toggleClass(clas){
+        this.element.classList.toggle(clas)
+        return this;
+    }
+    
+    
+
      /**
      * 
      * @param {string} text 
@@ -270,6 +284,11 @@ class SpanComponent extends Component {
     constructor(id, cssclass, innerHTML) {
         super(id, "span",cssclass, innerHTML);
         
+    }
+}
+class TextBlockComponent extends Component{
+    constructor(id,cssclass,innerHTML){
+        super(id,"p",cssclass,innerHTML);
     }
 }
 class BrComponent extends Component{

@@ -95,3 +95,49 @@ body{
     border-radius:3px;
     color: white;
 }
+.questComponent {
+    background-color: #151515;
+    color: #DDDDDD;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    height: 100%;
+    width: 100%;
+    
+}
+
+.questName {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px; /* Add margin between title and description */
+    width: 100%;
+    text-align: center;
+    display: block;
+}
+
+.questDescription {
+    font-size: 1em;
+    margin-bottom: 10px; /* Add margin between description and other details */
+    margin-left: 10%;
+    margin-right:10%;
+}
+
+.questInfoDiv{
+    width: 100%;
+}
+.questLength {
+    font-size: 0.9em;
+    color: #AAAAAA;
+    position:absolute;
+    display: inline-block; /* Center the length */
+    width: 100%;
+    text-align: center;
+}
+
+.questRubyReward {
+    font-size: 0.9em;
+    color: #AAAAAA;
+    display: inline-block; /* Align ruby reward to the right */
+    right: 20px;
+    position: absolute;
+}

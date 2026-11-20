@@ -16,16 +16,43 @@ class HabilityData{
      /**@type {SpanComponent} */ playerLevelSpan = null;
      /**@type {SpanComponent} */ playerXPSpan = null;
      /**@type {SpanComponent} */ playerEnergySpan = null;
-     /**@type {SpanComponent} */ playerLevelSpan = null;
+
+
+
+    loadDataFromLocalStorage(){
+        let rb = localStorageManager.loadData("currencyRubies");
+        this.currencyRuby = rb ==null || rb == undefined ? 0 : Number(rb);
+        
+
+
+
+
+        this.resetSpans();
+    }
+
+    resetSpans(){
+        if(this.currencyRubySpan)this.currencyRubySpan.setText(this.currencyRuby);
+        if(this.currencySilverSpan)this.currencySilverSpan.setText(this.currencySilver);
+        if(this.currencyGoldSpan)this.currencyGoldSpan.setText(this.currencyGold);
+        if(this.currencyWoodSpan)this.currencyWoodSpan.setText(this.currencyWood);
+        if(this.playerLevelSpan)this.playerLevelSpan.setText(this.getLevel());
+        if(this.playerXPSpan)this.playerXPSpan.setText(this.xp - this.xpRequiredForCurrentLevel());
+        if(this.playerEnergySpan)this.playerEnergySpan.setText(this.playerEnergy);
+    }
+
+
+
 
      /**
      * Calculate the XP required for the next level.
      * @returns {number} XP required for the next level.
      */
-     xpRequiredForNextLevel() {
+     xpRequiredForNextLevel() 
+     {
         return Math.floor(100 * Math.pow(1.5, this.getLevel()));
-    }
-    xpRequiredForCurrentLevel(){
+     }
+    xpRequiredForCurrentLevel()
+    {
      if(this.getLevel() ==0)return 0;
      return Math.floor(100 * Math.pow(1.5,this.getLevel()-1));
     }
@@ -34,22 +61,26 @@ class HabilityData{
      * Get the current level based on the total XP.
      * @returns {number} The current level.
      */
-    getLevel() {
+    getLevel() 
+    {
         return this.getLevelForXP(this.playerXP); 
     }
 
-    getLevelForXP(xp){
+    getLevelForXP(/**@type {number}*/xp)
+    {
      let level = 0;
      let xpRequired = 0;
-     while(xp >=xpRequired){
+     while(xp >=xpRequired)
+        {
           level++;
           xpRequired = Math.floor(100 * Math.pow(1.5,level));
-     }
+        }
      return level;
     }
     
 
-    updateLevelAndXP(){
+    updateLevelAndXP()
+    {
         this.playerLevel = this.getLevel();
         let current = this.playerXP - this.xpRequiredForCurrentLevel();
         if(this.playerXPSpan!=null)this.playerXPSpan.setText(""+Math.floor(current)+"/"+ Math.ceil(this.xpRequiredForNextLevel() - this.xpRequiredForCurrentLevel()));
@@ -57,82 +88,101 @@ class HabilityData{
         
 
     }
+    
 
-
-    setRubies(rubies) {
+    setRubies(/**@type {number}*/rubies,/**@type {boolean=}*/dontsave = false) 
+    {
         if (this.currencyRubySpan != null) {
             this.currencyRubySpan.setText(rubies);
         }
         this.currencyRuby = rubies;
-        localStorageManager.saveData("currencyRubies", rubies);
+        if(dontsave==undefined || !dontsave){console.log("saving rubies");localStorageManager.saveData("currencyRubies", rubies)};
     }
 
-    addRubies(rubies) {
+    addRubies(/**@type {number}*/rubies) 
+    {
         this.setRubies(this.currencyRuby + rubies);
     }
 
-    tryPayRubies(rubies) {
-        if (this.currencyRuby >= rubies) {
+    tryPayRubies(/**@type {number}*/rubies) 
+    {
+        if (this.currencyRuby >= rubies) 
+        {
             this.setRubies(this.currencyRuby - rubies);
             return true;
         }
         return false;
     }
 
-    setSilver(silver) {
-        if (this.currencySilverSpan != null) {
+    setSilver(/**@type {number}*/silver,/**@type {boolean=}*/dontsave = false) 
+    {
+        if (this.currencySilverSpan != null) 
+        {
             this.currencySilverSpan.setText(silver);
         }
         this.currencySilver = silver;
-        localStorageManager.saveData("currencySilver", silver);
+        if(dontsave==undefined || !dontsave)localStorageManager.saveData("currencySilver", silver);
     }
 
-    addSilver(silver) {
+    addSilver(/**@type {number}*/silver) 
+    {
         this.setSilver(this.currencySilver + silver);
     }
 
-    tryPaySilver(silver) {
-        if (this.currencySilver >= silver) {
+    tryPaySilver(/**@type {number}*/silver) 
+    {
+        if (this.currencySilver >= silver) 
+        {
             this.setSilver(this.currencySilver - silver);
             return true;
         }
         return false;
     }
 
-    setGold(gold) {
-        if (this.currencyGoldSpan != null) {
+    setGold(/**@type {number}*/gold,/**@type {boolean=}*/dontsave = false) 
+    {
+        if (this.currencyGoldSpan != null) 
+        {
             this.currencyGoldSpan.setText(gold);
         }
         this.currencyGold = gold;
-        localStorageManager.saveData("currencyGold", gold);
+        if(dontsave==undefined || !dontsave)localStorageManager.saveData("currencyGold", gold);
     }
 
-    addGold(gold) {
+    addGold(/**@type {number}*/gold) 
+    {
         this.setGold(this.currencyGold + gold);
     }
 
-    tryPayGold(gold) {
-        if (this.currencyGold >= gold) {
+    tryPayGold(/**@type {number}*/gold) 
+    {
+        if (this.currencyGold >= gold) 
+        {
             this.setGold(this.currencyGold - gold);
             return true;
         }
         return false;
     }
 
-    setWood(wood) {
-        if (this.currencyWoodSpan != null) {
+    setWood(/**@type {number}*/wood,/**@type {boolean=}*/dontsave = false) 
+    {
+        if (this.currencyWoodSpan != null) 
+        {
             this.currencyWoodSpan.setText(wood);
         }
         this.currencyWood = wood;
-        localStorageManager.saveData("currencyWood", wood);
+        if(dontsave==undefined || !dontsave)localStorageManager.saveData("currencyWood", wood);
     }
 
-    addWood(wood) {
+    addWood(/**@type {number}*/wood) 
+    {
         this.setWood(this.currencyWood + wood);
     }
 
-    tryPayWood(wood) {
-        if (this.currencyWood >= wood) {
+    tryPayWood/**@type {number}*/(wood) 
+    {
+        if (this.currencyWood >= wood) 
+        {
             this.setWood(this.currencyWood - wood);
             return true;
         }
@@ -140,33 +190,41 @@ class HabilityData{
     }
 
 
-    setXP(xp) {
-        if (this.playerXPSpan != null) {
+    setXP(/**@type {number}*/xp,/**@type {boolean=}*/dontsave = false) 
+    {
+        if (this.playerXPSpan != null) 
+        {
             this.playerXPSpan.setText(xp);
         }
         this.playerXP = xp;
         this.updateLevelAndXP();
-        localStorageManager.saveData("playerXP", xp);
+        if(dontsave==undefined || !dontsave)localStorageManager.saveData("playerXP", xp);
     }
 
-    addXP(xp) {
+    addXP(/**@type {number}*/xp) 
+    {
         this.setXP(this.playerXP + xp);
     }
 
-    setEnergy(energy) {
-        if (this.playerEnergySpan != null) {
+    setEnergy(/**@type {number}*/energy,/**@type {boolean=}*/dontsave = false) 
+    {
+        if (this.playerEnergySpan != null) 
+        {
             this.playerEnergySpan.setText(energy);
         }
         this.playerEnergy = energy;
-        localStorageManager.saveData("playerEnergy", energy);
+        if(dontsave==undefined || !dontsave)localStorageManager.saveData("playerEnergy", energy);
     }
 
-    addEnergy(energy) {
+    addEnergy(/**@type {number}*/energy) 
+    {
         this.setEnergy(this.playerEnergy + energy);
     }
 
-    tryPayEnergy(energy) {
-        if (this.playerEnergy >= energy) {
+    tryPayEnergy(/**@type {number}*/energy) 
+    {
+        if (this.playerEnergy >= energy) 
+        {
             this.setEnergy(this.playerEnergy - energy);
             return true;
         }
@@ -196,12 +254,16 @@ class FoodCheck{
 
 
       /** @type {MealTracker} */ mealTracker;
-     constructor(){
-          this.mealTracker = new MealTracker();
+     constructor()
+     {
+          this.mealTracker = new MealTracker(); 
      }
+
+     /**@type {FoodCheckStatusComponent} */goalComponent = null;
      
 
-     setGoals(mincalories, maxcalories,mincarbs,maxcarbs,minfats,maxfats,minproteins,maxproteins,vegetables){
+     setGoals(mincalories, maxcalories,mincarbs,maxcarbs,minfats,maxfats,minproteins,maxproteins,vegetables)
+     {
             this.minCalories = mincalories;
             this.maxCalories = maxcalories;
             this.minCarbs = mincarbs;
@@ -211,23 +273,58 @@ class FoodCheck{
             this.minProteins = minproteins;
             this.maxProteins = maxproteins;
             this.minFruitsAndVegetables = vegetables;
+
+            localStorageManager.saveData('fcg', {
+                mk: mincalories,
+                pk: maxcalories,
+                mc: mincarbs,
+                pc: maxcarbs,
+                mf: minfats,
+                pf: maxfats,
+                mp: minproteins,
+                pp: maxproteins,
+                v: vegetables
+            });
+            if(this.goalComponent)this.goalComponent.updateStatus();
      }
 
-     checkIfPossibleMin(){
+     loadGoalsFromLocalStorage() 
+     {
+        const goals = localStorageManager.loadData('fcg');
+        if (goals) {
+            this.minCalories=(goals.mk);
+            this.maxCalories=(goals.pk);
+            this.minCarbs=(goals.mc);
+            this.maxCarbs=(goals.pc);
+            this.minFats=(goals.mf);
+            this.maxFats=(goals.pf);
+            this.minProteins=(goals.mp);
+            this.maxProteins=(goals.pp);
+            this.minFruitsAndVegetables=(goals.v);
+            if(this.goalComponent)this.goalComponent.updateStatus();
+        }
+    }
+
+     checkIfPossibleMin()
+     {
           var totalMin = (this.minCarbs*4) + (this.minProteins *4) + (this.minFats*9);
           return {possible : totalMin <= this.maxCalories, totalMin : totalMin};
      }
 
-     addMeal(meal) {
+     addMeal(meal) 
+    {
         this.mealTracker.addMeal(meal);
     }
-     replaceMeal(oldMeal, newMeal) {
+     replaceMeal(oldMeal, newMeal) 
+     {
      this.mealTracker.replaceMeal(oldMeal, newMeal);
      }
-     deleteMeal(meal){
+     deleteMeal(meal)
+     {
           this.mealTracker.deleteMeal(meal);
      }
-    checkMealGoals() {
+    checkMealGoals() 
+    {
         const { totalCalories, totalCarbs, totalFats, totalProteins, totalVegetables } = this.mealTracker;
 
         let score = 0;
@@ -251,8 +348,9 @@ class FoodCheck{
     }
 }
 
-class Meal{
-     /** @type {number} */ calories = 0;
+class Meal
+{
+    /** @type {number} */ calories = 0;
     /** @type {number} */ carbs = 0;
     /** @type {number} */ fats = 0;
     /** @type {number} */ proteins = 0;
@@ -285,6 +383,7 @@ class MealTracker {
     /** @type {number} */ totalProteins = 0;
     /** @type {number} */ totalVegetables = 0;
     /** @type {Meal[]} */ meals = [];
+    /**@type {boolean} */ containsMealsFromYesterday = false;
 
     /**
      * Add a meal to the tracker and update the totals.
@@ -354,7 +453,7 @@ class MealTracker {
     loadMealsFromLocalStorage() {
         const mealsData = localStorageManager.loadData('meals');
         if (mealsData) {
-            this.meals = mealsData.map(mealData => new Meal(
+            let nm = mealsData.map(mealData => new Meal(
                 mealData.calories,
                 mealData.carbs,
                 mealData.fats,
@@ -362,6 +461,22 @@ class MealTracker {
                 mealData.vegetables,
                 new Date(mealData.dateTime)
             ));
+
+                let today = new Date();
+                today.setHours(0,0,0,0);
+                let yesterday = new Date();
+                yesterday.setDate(today.getDate()-1);
+                yesterday.setHours(0,0,0,0);
+            for(const ml of nm){
+                if(ml.dateTime.getTime()>= yesterday.getTime() && ml.dateTime.getTime()< today.getTime())//Then meal was from yesterday
+                {
+                    this.containsMealsFromYesterday = true;
+                }
+                if(ml.dateTime.getTime()>= yesterday.getTime()){
+                    this.meals.push(ml);
+                }
+                
+            }
             this.updateTotalsFromMeals();
         }
     }

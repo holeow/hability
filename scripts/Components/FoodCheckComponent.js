@@ -164,6 +164,8 @@ class FoodCheckStatusComponent extends Component {
             this[`${category.name}GoalSpan`] = goalSpan;
             this[`${category.name}ProgressBar`] = progressBar;
         });
+        this.yesterdayStatus = new SpanComponent("yesterdayStatus","yesterdayStatus","")
+        this.addComponent(this.yesterdayStatus);
 
         this.updateStatus();
         foodCheck.mealTracker.foodCheckStatusComponent = this;
@@ -194,6 +196,7 @@ class FoodCheckStatusComponent extends Component {
                 this[`${category.name}ProgressBar`].setValue(Math.floor(progressPercentage));
             }
         });
+        this.yesterdayStatus.setText(foodCheck.mealTracker.containsMealsFromYesterday ? "Contains meals from yesterday" : "Today's meals");
     }
 }
 
