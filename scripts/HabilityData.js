@@ -252,7 +252,7 @@ class FoodCheck{
      /**@type {number} */ maxProteins = 75;
      /**@type {number} */ minFruitsAndVegetables = 300;
 
-
+    /**@type {number} */ yestScore = 0;
       /** @type {MealTracker} */ mealTracker;
      constructor()
      {
@@ -303,6 +303,24 @@ class FoodCheck{
             this.minFruitsAndVegetables=(goals.v);
             if(this.goalComponent)this.goalComponent.updateStatus();
         }
+
+         let yesterday = new Date();
+        yesterday.setDate(yesterday.getDate()-1);
+        yesterday.setHours(0,0,0,0);
+
+        let pys = localStorageManager.loadData("fcscsc");
+        if(pys){
+            pys = parseInt(pys);
+        }
+        
+        let dt = localStorageManager.loadData("fcscdt");
+        if(dt){ dt = parseInt(dt);}
+        if(dt){ dt = new Date(dt);}
+        if(dt.getTime() == yesterday.getTime() ){
+            this.yestScore = pys;
+            console.log("yestscore:" + this.yestScore);
+        }
+        this.goalComponent.updateStatus();
     }
 
      checkIfPossibleMin()
@@ -345,6 +363,20 @@ class FoodCheck{
         }
 
         return score;
+    }
+
+    startNewDay(){
+        let yesterday = new Date();
+        yesterday.setDate(yesterday.getDate()-1);
+        yesterday.setHours(0,0,0,0);
+        let score = this.checkMealGoals();
+        localStorageManager.saveData("fcscsc",score);
+        localStorageManager.saveData("fcscdt",yesterday.getTime());
+        this.yestScore = score;
+        this.mealTracker.meals = [];
+        this.mealTracker.saveMealsToLocalStorage();
+        this.mealTracker.updateTotalsFromMeals();
+        this.mealTracker.mealListComponent.updateList();
     }
 }
 

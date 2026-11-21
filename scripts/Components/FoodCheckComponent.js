@@ -89,7 +89,12 @@ class FoodCheckGoalSetupComponent extends Component {
         this.addComponent(this.maxProteinsField);
         this.addComponent(this.minVegetablesField);
         this.addComponent(this.submitButton);
+
+        
     }
+
+    
+
 
     handleSubmit() {
         let minCalories = parseFloat(this.minCaloriesField.getValue());
@@ -164,11 +169,19 @@ class FoodCheckStatusComponent extends Component {
             this[`${category.name}GoalSpan`] = goalSpan;
             this[`${category.name}ProgressBar`] = progressBar;
         });
+        this.yesterdayDiv = new DivComponent("yesterdayDiv","yesterdayDiv","");
+        this.addComponent(this.yesterdayDiv);
         this.yesterdayStatus = new SpanComponent("yesterdayStatus","yesterdayStatus","")
-        this.addComponent(this.yesterdayStatus);
-
-        this.updateStatus();
+        this.yesterdayDiv.addComponent(this.yesterdayStatus);
+        this.newDayButton = new ButtonComponent("newDayFoodButton","newDayFoodButton",this.newDay,"This is a new day!");
+        this.yesterdayDiv.addComponent(this.newDayButton);
+        
         foodCheck.mealTracker.foodCheckStatusComponent = this;
+        this.updateStatus();
+    }
+    newDay()
+    {
+        foodCheck.startNewDay();
     }
 
     updateStatus() {
@@ -196,7 +209,11 @@ class FoodCheckStatusComponent extends Component {
                 this[`${category.name}ProgressBar`].setValue(Math.floor(progressPercentage));
             }
         });
-        this.yesterdayStatus.setText(foodCheck.mealTracker.containsMealsFromYesterday ? "Contains meals from yesterday" : "Today's meals");
+        this.yesterdayStatus.setText(foodCheck.mealTracker.containsMealsFromYesterday ? "Contains meals from yesterday" : "Today's meals (yesterday's score:" + foodCheck.yestScore + ")");
+        /*if(foodCheck.mealTracker.containsMealsFromYesterday){
+            this.newDayButton.removeClass("hidden");
+        }
+        else this.newDayButton.addClass("hidden");*/
     }
 }
 
