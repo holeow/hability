@@ -316,7 +316,7 @@ class FoodCheck{
         let dt = localStorageManager.loadData("fcscdt");
         if(dt){ dt = parseInt(dt);}
         if(dt){ dt = new Date(dt);}
-        if(dt.getTime() == yesterday.getTime() ){
+        if(dt && dt.getTime() == yesterday.getTime() ){
             this.yestScore = pys;
             console.log("yestscore:" + this.yestScore);
         }

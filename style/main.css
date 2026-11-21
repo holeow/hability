@@ -124,6 +124,7 @@ body{
 
 .questInfoDiv{
     width: 100%;
+    height:2em;
 }
 .questLength {
     font-size: 0.9em;
@@ -140,4 +141,23 @@ body{
     display: inline-block; /* Align ruby reward to the right */
     right: 20px;
     position: absolute;
+}
+
+.emoji {
+    height: 1.6em;
+    width: auto;
+    vertical-align: -0.5em;
+    display: inline-block;
+}
+
+.startQuestButtonDiv {
+    width: 100%;
+    height: 70px;
+    position: relative;
+    
+}
+.startQuestButtonDiv .startQuestButton{
+    height: 2em;
+    margin:auto;
+    display: block;
 }

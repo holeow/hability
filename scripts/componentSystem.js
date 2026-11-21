@@ -202,76 +202,6 @@ class Component {
         return this;
 
     }
-    
-    /*
-
-    
-    reloadSilently(){
-        if(this.modeTxt)this.innerHTML = this.txt;
-        else{
-            for (const [key, value] of this.components.entries()) {
-            this.innerHTML += value.html;
-            }   
-        }
-    }
-    reload(){
-        if(this.modeTxt){
-            document.getElementById("hlwComponent_"+this.elementID+"_"+this.id).innerText = this.txt;
-            this.innerHTML = this.txt;
-            return;
-        }
-
-        var element = document.getElementById("hlwComponent_"+this.elementID+"_"+this.id);
-        element.innerHTML = "";
-        this.innerHTML = "";
-        for (const [key, value] of this.components.entries()) {
-            element.innerHTML += value.html;
-            this.innerHTML += value.html;
-            value.online = true;
-
-        }   
-    }
-    reloadSequence(){
-
-        if(this.modeTxt){
-            document.getElementById("hlwComponent_"+this.elementID+"_"+this.id).innerText = this.txt;
-            this.innerHTML = this.txt;
-            return;
-        }
-        else{
-            var element = document.getElementById("hlwComponent_"+this.elementID+"_"+this.id);
-            if(this.online)element.innerHTML = "";
-            this.innerHTML = "";
-            var arr = [];
-            this.addInvertedToArray(arr);
-            var ar2 = arr.reverse();
-            for(const value of ar2){
-                value.reloadSilently();
-                value.online = true;
-            }
-            for(const value of this.components.values()){
-                this.innerHTML+=value.html;
-               
-            }
-            
-            if(this.online)element.innerHTML = this.innerHTML;
-            for (const value of ar2){
-                if(value.onclick!=null){
-                    document.getElementById("hlwComponent_"+value.elementID+"_"+value.id).onclick = value.onclick;
-                }
-            }
-        }
-
-    }
-
-    addInvertedToArray(array){
-        for (const [key, value] of this.components.entries()) {
-            array.push(value);
-            value.addInvertedToArray(array);
-        }
-
-    }
-        */
 }
 
 class DivComponent extends Component {
@@ -330,6 +260,13 @@ class PictureComponent extends ImgComponent{
 
     setPicture(pictureName){
         this.setSrc(pictureStore.get(pictureName).link);
+    }
+}
+
+class EmojiComponent extends PictureComponent{
+    constructor(id,cssclass,pictureName){
+        super(id,cssclass,pictureName);
+        this.addClass("emoji");
     }
 }
 

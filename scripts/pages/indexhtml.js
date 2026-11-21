@@ -71,8 +71,7 @@ function tr(value){
 }
 function toggleQuest(){
     questDiv.toggleClass("hidden");
-    let quest = new FetchLostItemQuest();
-    quest.generate();
+    let quest = questHandler.currentQuest;
     questDiv.clearComponents();
     let questcpn = new QuestComponent("questInfo","questInfo",quest);
     questDiv.addComponent(questcpn);
