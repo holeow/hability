@@ -529,7 +529,17 @@ class MealTracker {
             this.totalProteins += meal.proteins;
             this.totalVegetables += meal.vegetables;
         });
-
+         let today = new Date();
+                today.setHours(0,0,0,0);
+                let yesterday = new Date();
+                yesterday.setDate(today.getDate()-1);
+                yesterday.setHours(0,0,0,0);
+            for(const ml of this.meals){
+                if(ml.dateTime.getTime()>= yesterday.getTime() && ml.dateTime.getTime()< today.getTime())//Then meal was from yesterday
+                {
+                    this.containsMealsFromYesterday = true;
+                }
+            }
         if (this.foodCheckStatusComponent) {
             this.foodCheckStatusComponent.updateStatus();
         }
