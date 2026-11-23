@@ -534,12 +534,15 @@ class MealTracker {
                 let yesterday = new Date();
                 yesterday.setDate(today.getDate()-1);
                 yesterday.setHours(0,0,0,0);
+                let ctns = false;
             for(const ml of this.meals){
                 if(ml.dateTime.getTime()>= yesterday.getTime() && ml.dateTime.getTime()< today.getTime())//Then meal was from yesterday
                 {
                     this.containsMealsFromYesterday = true;
+                    ctns=true;
                 }
             }
+            if(!ctns) this.containsMealsFromYesterday=false;
         if (this.foodCheckStatusComponent) {
             this.foodCheckStatusComponent.updateStatus();
         }

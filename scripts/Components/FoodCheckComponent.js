@@ -184,7 +184,8 @@ class FoodCheckStatusComponent extends Component {
         foodCheck.startNewDay();
     }
 
-    updateStatus() {
+    updateStatus() 
+    {
         this.categories.forEach(category => {
             const current = foodCheck.mealTracker[category.currentField];
             const min = foodCheck[category.minField] || 0;
