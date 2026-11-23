@@ -40,6 +40,13 @@ class QuestHandler {
         localStorageManager.saveData("questcode",q.questTypeCode);
         localStorageManager.saveData("questData", q.questData);
     }
+
+    loadNewRandomQuest(){
+        let q = new FetchLostItemQuest();
+        q.generate();
+        this.private_storedCurrentQuest = q;
+        this.saveCurrentQuestToStorage();
+    }
 }
 
 
