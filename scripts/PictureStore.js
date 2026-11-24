@@ -44,10 +44,11 @@ class PictureStore {
 const pictureStore = new PictureStore();
 let pstore = {};
 pstore.currencyRuby = new Picture("currencyRuby","img/dragonruby64.png","CHAT GPT","https://chatgpt.com")
-pstore.currencySilver = new Picture("currencyRuby","img/dragonsilver64.png","CHAT GPT","https://chatgpt.com")
-pstore.currencyGold = new Picture("currencyRuby","img/dragongold64.png","CHAT GPT","https://chatgpt.com")
-pstore.currencyWood = new Picture("currencyRuby","img/dragonwood64.png","CHAT GPT","https://chatgpt.com")
+pstore.currencySilver = new Picture("currencySilver","img/dragonsilver64.png","CHAT GPT","https://chatgpt.com")
+pstore.currencyGold = new Picture("currencyGold","img/dragongold64.png","CHAT GPT","https://chatgpt.com")
+pstore.currencyWood = new Picture("currencyWood","img/dragonwood64.png","CHAT GPT","https://chatgpt.com")
 
 pstore.iconGriffin = new Picture("iconGriffin", "img/griffin.png","flaticon","https://www.flaticon.com/free-icons/griffin")
 pictureStore.addPicture(pstore.currencyRuby);
+pictureStore.addPicture(pstore.currencySilver);
 pictureStore.addPicture(pstore.iconGriffin);

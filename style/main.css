@@ -161,3 +161,10 @@ body{
     margin:auto;
     display: block;
 }
+
+.txtcolorred{
+    color: red;
+}
+.txtcolorgreen{
+    color:green;
+}

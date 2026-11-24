@@ -334,18 +334,50 @@ class QuestBarComponent extends Component{
 
     }
 
-    async setQuest(milliseconds){
-        this.value = 0;
-        let startTime = new Date().getTime();
-        this.actualtime = 0;
-        this.setMaxTime(milliseconds);
-        while (this.actualtime< this.maxTime){
+    async setQuest(){
+        this.quest = questHandler.currentQuest;
+        if(questHandler.currentQuest.startMoment == null)
+        {
+            this.setValue(0);
+            return;
+        }
+        this.actualtime = new Date().getTime() - questHandler.currentQuest.startMoment.getTime();
+        this.maxTime = questHandler.currentQuest.length;
+
+        if(this.actualtime>= this.maxTime){
+            if(questHandler.currentQuest.done){
+                this.setValue(1000);
+                return;
+            }
+            questHandler.setQuestToDone();
+            habilityData.addRubies(questHandler.currentQuest.rubyReward);
+            this.setValue(1000);
+            return;
+        }
+        let val = Math.floor((this.actualtime / this.maxTime)*1000);
+        if(val>1000)val = 1000;
+        this.setValue(val);
+        while (this.actualtime< this.maxTime && questHandler.currentQuest.startMoment != null && this.quest == questHandler.currentQuest){
             await new Promise(r => setTimeout(r, 50));
             let newTime = new Date().getTime();
-            this.actualtime = newTime - startTime;
-            this.setValue(Math.floor((this.actualtime / this.maxTime)*1000))
-            if(this.actualtime >= this.maxTime)
-                console.log("Quest Done !")
+            this.actualtime = newTime - questHandler.currentQuest.startMoment;
+            let nv = Math.floor((this.actualtime / this.maxTime)*1000);
+            if(nv >1000) nv= 1000;
+            this.setValue(nv)
+            if(questHandler.currentQuest.startMoment!= null && this.actualtime >= this.maxTime){
+                 if(questHandler.currentQuest.done){
+                this.setValue(1000);
+                break;
+            }
+            questHandler.setQuestToDone();
+            habilityData.addRubies(questHandler.currentQuest.rubyReward);
+            this.setValue(1000);
+            break;
+            }
+                
+        }
+        if(questHandler.currentQuest.startMoment == null){
+            this.setValue(0);
         }
     }
 
@@ -410,6 +442,12 @@ class ButtonComponent extends Component{
         super(id,"button",cssclass,innerHTML);
         this.setOnClick(onclick);
     }
+
+    setEnabled(bool){
+        if(this.element!==null)
+            this.element.disabled = !bool;
+        return this;
+    }
 }
 
 class FieldComponent extends Component {
@@ -454,6 +492,7 @@ class FieldComponent extends Component {
         }
         return this;
     }
+
 
     handleInput(event) {
         if(this.numericMode){

@@ -51,8 +51,8 @@ class QuestComponent extends Component {
      * @param {QuestComponent} cpn 
      */
     startQuest(cpn){
-        console.log(cpn.quest.questName);
-        cpn.questBar.setQuest(cpn.quest.length)
+        questHandler.startCurrentQuest()
+        cpn.questBar.setQuest()
     }
     formatTime(milliseconds) {
         const minutes = Math.floor(milliseconds / 60000);
@@ -62,6 +62,7 @@ class QuestComponent extends Component {
     reloadQuest(cpn){
         questHandler.loadNewRandomQuest();
         cpn.setNewQuest(questHandler.currentQuest);
+        cpn.questBar.setQuest();
     }
 
     setNewQuest(/**@type {Quest} */quest){

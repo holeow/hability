@@ -47,6 +47,18 @@ class QuestHandler {
         this.private_storedCurrentQuest = q;
         this.saveCurrentQuestToStorage();
     }
+
+    startCurrentQuest(){
+        let q = this.currentQuest;
+        this.currentQuest.startMoment = new Date();
+        this.saveCurrentQuestToStorage();
+    }
+
+    setQuestToDone(){
+        let q = this.currentQuest;
+        this.currentQuest.done = true;
+        this.saveCurrentQuestToStorage();
+    }
 }
 
 
@@ -59,6 +71,9 @@ class Quest{
     /**@type {string} */ get questTypeCode(){return "nul";}
     /**@type {string} */ get questData(){return JSON.stringify({});}
 
+    /**@type {Date} */ startMoment = null;
+    /**@type {boolean} */ done = false;
+
     generate(){}
     constructor(){}
 
@@ -69,7 +84,7 @@ class FetchLostItemQuest extends Quest
 
     /**@type {Array<string>} */ itemTypeName = ["medallion","key","elixir","ring","amulet","scroll"]
     /**@type {Array<string>} */ itemLoreName = ["Tsunegroth","Alaviar","Nicoumene","Al'Vaggor"]
-    /**@type {Array<number>} */ possibleLengths = [300000,450000,600000,900000]
+    /**@type {Array<number>} */ possibleLengths = [30000,45000,60000,90000]
     /**@type {number} */ baseRubyRewardPerMinute = 0.25;
 
     /**@type {number} */ calculatedRubyReward = -1;
@@ -112,7 +127,7 @@ class FetchLostItemQuest extends Quest
     }
 
     getDataString(){
-        let obj = {v : 1,itn : this.itemTypeName.findIndex(a=>a== this.selectedTypeName), iln : this.itemLoreName.findIndex(a=> a == this.selectedLoreName), rr : this.calculatedRubyReward, sm:  this.startMoment? this.startMoment.getTime() : null, l : this.selectedLength}
+        let obj = {v : 1,itn : this.itemTypeName.findIndex(a=>a== this.selectedTypeName), iln : this.itemLoreName.findIndex(a=> a == this.selectedLoreName), rr : this.calculatedRubyReward, sm:  this.startMoment? this.startMoment.getTime() : null, l : this.selectedLength, d: this.done}
         return JSON.stringify(obj);
     }
     reloadFromDataString(/**@type {string} */ datastring){
@@ -152,6 +167,9 @@ class FetchLostItemQuest extends Quest
             if(this.startMoment != null){
                 this.endMoment = new Date(this.startMoment.getTime() + ll);
             }
+            let dd = obj.d;
+            if(dd != true && dd != false) dd = false;
+            this.done = dd;
         }
         else this.generate();
     }

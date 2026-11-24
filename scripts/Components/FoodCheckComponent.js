@@ -296,3 +296,37 @@ class MealListComponent extends Component {
         this.updateList();
     }
 }
+
+class CompositeFoodCheckComponent extends Component{
+    constructor(){
+        super("foodCheck","div","foodCheckDiv hidden","",false);
+        this.foodCheckStatus = null;
+
+        this.goalSetup = null
+        this.mealInput = null;
+        this.mealList = null;
+        this.createElement();
+    }
+    createElement(){
+        super.createElement();
+
+        this.foodCheckStatus = new FoodCheckStatusComponent("foodCheckStatus","");
+        this.addComponent(this.foodCheckStatus);
+        foodCheck.goalComponent = this.foodCheckStatus;
+        this.goalSetup = new FoodCheckGoalSetupComponent("goalSetup","")
+        this.addComponent(this.goalSetup);
+        this.br().br().br().br();
+        this.mealInput = new MealInputComponent("meal","");
+        this.addComponent(this.mealInput);
+        this.br().br().br().br();
+        this.mealList = new MealListComponent("mealList","");
+        this.addComponent(this.mealList);
+
+
+
+    }
+    br(){
+        this.addComponent(new BrComponent());
+        return this;
+    }
+}
