@@ -16,8 +16,13 @@ class SilverTradeComponent extends Component {
        const cpn = super.createElement();
         this.userIDSpan = new SpanComponent("uidspan","uidspan","Your Habitica User ID:");
         this.UserIDField = new FieldComponent("uidfield","uidField","EXAMPLE:8eedf32f-b93b-4033-af1f-9xxx-xxxx ");
+
+        let storeduid = localStorageManager.loadData("useruid");
+        if(storeduid)this.UserIDField.setValue(storeduid);
         this.userAPITOKENSpan = new SpanComponent("apitspan","apitspan","Your Habitica API Token:");
         this.userAPITOKENField = new FieldComponent("apitfield","apitfield","DIFFERENT FROM USER ID");
+        let storedapit = localStorageManager.loadData("userapit");
+        if(storedapit) this.userAPITOKENField.setValue(storedapit);
         cpn.addComponent(this.userIDSpan);
         cpn.addComponent(this.UserIDField);
                 cpn.addComponent(new BrComponent());
@@ -126,7 +131,11 @@ function HEADERS(component){
 }
 
 
-
+/**
+ * 
+ * @param {SilverTradeComponent} component 
+ * @returns 
+ */
 async function getAmountOfGoldInHabitica(component){
     const url = "https://habitica.com/api/v3/user?userFields=items.food,stats.gp";
     try{
@@ -140,6 +149,8 @@ async function getAmountOfGoldInHabitica(component){
         }
         const result = await response.json();
         if(result.success == true){
+            localStorageManager.saveData("useruid", component.UserIDField.getValue());
+            localStorageManager.saveData("userapit",component.userAPITOKENField.getValue());
             return {status : "ok", money : Number(result.data.stats.gp)}
         }
         else return {status : "error", money: -1, content:JSON.stringify(result,null,2)};

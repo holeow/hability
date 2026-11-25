@@ -36,7 +36,9 @@ class QuestComponent extends Component {
         cpn.addComponent(this.infoDiv);
         let d = new DivComponent("questStartButtonDiv","startQuestButtonDiv","");
         cpn.addComponent(d);
-        this.startQuestButton = new ButtonComponent("startQuestButton","startQuestButton", () => this.startQuest(cpn),"START");
+        this.startQuestButton = new ButtonComponent("startQuestButton","startQuestButton", () => this.startQuest(cpn),"");
+        this.startQuestButton.addComponent(new SpanComponent("startText","","").setText("START: "+ questHandler.questTravelPrice));
+        this.startQuestButton.addComponent(new EmojiComponent("silveremoji","",pstore.currencySilver.name))
         this.restartQuest = new ButtonComponent("newQuestButton","startQuestButton",()=> {this.reloadQuest(cpn)}, "RELOAD")
         d.addComponent(this.startQuestButton);
         d.addComponent(new BrComponent());
@@ -74,5 +76,8 @@ class QuestComponent extends Component {
         this.questRubyReward.setText("");
         this.questRubyReward.addComponent(new SpanComponent("rrrr","","").setText(quest.rubyReward));
         this.questRubyReward.addComponent(new EmojiComponent("rubyRewardquestdisplay","rubyrewardquestdisplay",pstore.currencyRuby.name));
+        this.startQuestButton.clearComponents();
+        this.startQuestButton.addComponent(new SpanComponent("startText","","").setText("START: "+ questHandler.questTravelPrice));
+        this.startQuestButton.addComponent(new EmojiComponent("silveremoji","",pstore.currencySilver.name))
     }
 }

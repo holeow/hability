@@ -22,7 +22,8 @@ class HabilityData{
     loadDataFromLocalStorage(){
         let rb = localStorageManager.loadData("currencyRubies");
         this.currencyRuby = rb ==null || rb == undefined ? 0 : Number(rb);
-        
+        let slv = localStorageManager.loadData("currencySilver");
+        this.currencySilver = slv ==null || slv == undefined ? 0 : Number(slv);
 
 
 

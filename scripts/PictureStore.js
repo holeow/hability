@@ -49,6 +49,8 @@ pstore.currencyGold = new Picture("currencyGold","img/dragongold64.png","CHAT GP
 pstore.currencyWood = new Picture("currencyWood","img/dragonwood64.png","CHAT GPT","https://chatgpt.com")
 
 pstore.iconGriffin = new Picture("iconGriffin", "img/griffin.png","flaticon","https://www.flaticon.com/free-icons/griffin")
+
+pstore.questionmark = new Picture("questionMark","img/publicdomain/question-mark64blue.png","Karen Arnold","https://publicdomainpictures.net")
 pictureStore.addPicture(pstore.currencyRuby);
 pictureStore.addPicture(pstore.currencySilver);
 pictureStore.addPicture(pstore.iconGriffin);

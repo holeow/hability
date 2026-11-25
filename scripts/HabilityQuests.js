@@ -50,6 +50,7 @@ class QuestHandler {
 
     startCurrentQuest(){
         let q = this.currentQuest;
+        if(!habilityData.tryPaySilver(this.questTravelPrice)) return;
         this.currentQuest.startMoment = new Date();
         this.saveCurrentQuestToStorage();
     }
@@ -58,6 +59,12 @@ class QuestHandler {
         let q = this.currentQuest;
         this.currentQuest.done = true;
         this.saveCurrentQuestToStorage();
+    }
+
+    get questTravelPrice(){
+        let tm = this.currentQuest.length;
+        tm = Math.ceil(tm/30000);
+        return tm;
     }
 }
 
@@ -84,7 +91,7 @@ class FetchLostItemQuest extends Quest
 
     /**@type {Array<string>} */ itemTypeName = ["medallion","key","elixir","ring","amulet","scroll"]
     /**@type {Array<string>} */ itemLoreName = ["Tsunegroth","Alaviar","Nicoumene","Al'Vaggor"]
-    /**@type {Array<number>} */ possibleLengths = [30000,45000,60000,90000]
+    /**@type {Array<number>} */ possibleLengths = [300000,450000,600000,900000]
     /**@type {number} */ baseRubyRewardPerMinute = 0.25;
 
     /**@type {number} */ calculatedRubyReward = -1;
