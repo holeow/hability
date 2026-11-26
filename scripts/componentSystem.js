@@ -528,7 +528,64 @@ class FieldComponent extends Component {
     }
 }
 
+class TooltipSpanComponent extends Component {
+    constructor(id, cssclass, innerHTML, tooltipText) {
+        super(id,"span", cssclass, innerHTML,false);
+        this.tooltipText = tooltipText;
+        this.tooltipElement = null;
+        this.createElement();
+    }
 
+    createElement() {
+        super.createElement();
+        this.tooltipElement = document.createElement('span');
+        this.tooltipElement.className = 'tooltip';
+        this.tooltipElement.innerText = this.tooltipText;
+        this.tooltipElement.style.position = 'absolute';
+        this.tooltipElement.style.display = 'none';
+        this.tooltipElement.style.backgroundColor = 'black';
+        this.tooltipElement.style.color = 'white';
+        this.tooltipElement.style.padding = '5px';
+        this.tooltipElement.style.borderRadius = '5px';
+        this.tooltipElement.style.zIndex = '1000';
+
+        document.body.appendChild(this.tooltipElement);
+
+        this.element.addEventListener('mouseover', this.showTooltip.bind(this));
+        this.element.addEventListener('mousemove', this.moveTooltip.bind(this));
+        this.element.addEventListener('mouseout', this.hideTooltip.bind(this));
+    }
+
+    showTooltip() {
+        this.tooltipElement.style.display = 'block';
+    }
+
+    moveTooltip(event) {
+        const { clientX, clientY } = event;
+        const tooltipWidth = this.tooltipElement.offsetWidth;
+        const tooltipHeight = this.tooltipElement.offsetHeight;
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+
+        let left = clientX + 10;
+        let top = clientY + 10;
+
+        if (left + tooltipWidth > windowWidth) {
+            left = clientX - tooltipWidth - 10;
+        }
+
+        if (top + tooltipHeight > windowHeight) {
+            top = clientY - tooltipHeight - 10;
+        }
+
+        this.tooltipElement.style.left = `${left}px`;
+        this.tooltipElement.style.top = `${top}px`;
+    }
+
+    hideTooltip() {
+        this.tooltipElement.style.display = 'none';
+    }
+}
 
 
 function addComponentToElement(component, targetElement) {

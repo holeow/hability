@@ -54,3 +54,4 @@ pstore.questionmark = new Picture("questionMark","img/publicdomain/question-mark
 pictureStore.addPicture(pstore.currencyRuby);
 pictureStore.addPicture(pstore.currencySilver);
 pictureStore.addPicture(pstore.iconGriffin);
+pictureStore.addPicture(pstore.questionmark);
